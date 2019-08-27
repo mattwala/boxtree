@@ -148,7 +148,7 @@ def drive_fmm(traversal, expansion_wrangler, src_weights):
                 "('list 4 close')")
 
         potentials = potentials + wrangler.eval_direct(
-                traversal.target_or_target_parent_boxes,
+                traversal.target_boxes,
                 traversal.from_sep_close_bigger_starts,
                 traversal.from_sep_close_bigger_lists,
                 src_weights)
