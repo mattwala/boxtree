@@ -1,35 +1,8 @@
-#Python 3.5 Titan X:
-#    script:
-#    - py_version=3.5
-#    - export PYOPENCL_TEST=nvi:titan
-#    - EXTRA_INSTALL="numpy mako"
-#    - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-and-test-py-project.sh
-#    - ". ./build-and-test-py-project.sh"
-#    tags:
-#    - python3.5
-#    - nvidia-titan-x
-#    except:
-#    - tags
-
-Python 3.5 K40:
-    script:
-    - export PY_EXE=python3.5
-    - export PYOPENCL_TEST=nvi:k40
-    - export EXTRA_INSTALL="numpy mako"
-    - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-and-test-py-project.sh
-    - ". ./build-and-test-py-project.sh"
-    allow_failure: true
-    tags:
-    - python3.5
-    - nvidia-k40
-    except:
-    - tags
-  
 Python 2.7 POCL:
     script:
     - export PY_EXE=python2.7
     - export PYOPENCL_TEST=portable
-    - export EXTRA_INSTALL="numpy mako"
+    - export EXTRA_INSTALL="pybind11 numpy mako"
     - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-and-test-py-project.sh
     - ". ./build-and-test-py-project.sh"
     tags:
@@ -37,40 +10,94 @@ Python 2.7 POCL:
     - pocl
     except:
     - tags
+    artifacts:
+        reports:
+            junit: test/pytest.xml
 
-Python 3.5 POCL:
+Python 3 Titan V:
     script:
-    - export PY_EXE=python3.5
-    - export PYOPENCL_TEST=portable
-    - export EXTRA_INSTALL="numpy mako"
+    - export PY_EXE=python3
+    - export PYOPENCL_TEST=nvi:titan
+    - EXTRA_INSTALL="pybind11 numpy mako matplotlib"
     - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-and-test-py-project.sh
     - ". ./build-and-test-py-project.sh"
     tags:
-    - python3.5
-    - pocl
+    - python3
+    - nvidia-titan-v
+    allow_failure: true
     except:
     - tags
+    artifacts:
+        reports:
+            junit: test/pytest.xml
 
-Python 3.6 POCL:
+#Python 3 Titan X:
+#    script:
+#    - export PY_EXE=python3
+#    - export PYOPENCL_TEST=nvi:titan
+#    - EXTRA_INSTALL="pybind11 numpy mako"
+#    - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-and-test-py-project.sh
+#    - ". ./build-and-test-py-project.sh"
+#    tags:
+#    - python3
+#    - nvidia-titan-x
+#    except:
+#    - tags
+#    artifacts:
+#        reports:
+#            junit: test/pytest.xml
+
+Python 3 K40:
     script:
-    - export PY_EXE=python3.6
+    - export PY_EXE=python3
+    - export PYOPENCL_TEST=nvi:k40
+    - export EXTRA_INSTALL="pybind11 numpy mako"
+    - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-and-test-py-project.sh
+    - ". ./build-and-test-py-project.sh"
+    allow_failure: true
+    tags:
+    - python3
+    - nvidia-k40
+    except:
+    - tags
+    artifacts:
+        reports:
+            junit: test/pytest.xml
+
+Python 3 POCL:
+    script:
+    - export PY_EXE=python3
     - export PYOPENCL_TEST=portable
-    - export EXTRA_INSTALL="numpy mako"
+    - export EXTRA_INSTALL="pybind11 numpy mako matplotlib"
     - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-and-test-py-project.sh
     - ". ./build-and-test-py-project.sh"
     tags:
-    - python3.6
+    - python3
     - pocl
     except:
     - tags
+    artifacts:
+        reports:
+            junit: test/pytest.xml
+
+# Pylint:
+#   script:
+#   - export PY_EXE=python3
+#   - EXTRA_INSTALL="pybind11 numpy mako matplotlib"
+#   - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/prepare-and-run-pylint.sh
+#   - ". ./prepare-and-run-pylint.sh boxtree test/test_*.py"
+#   tags:
+#   - python3
+#   except:
+#   - tags
 
 Documentation:
     script:
-    - EXTRA_INSTALL="numpy mako"
+    - EXTRA_INSTALL="pybind11 numpy mako"
     - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/build-docs.sh
     - ". ./build-docs.sh"
     tags:
-    - python3.5
+    - python3
     only:
     - master
 
@@ -79,6 +106,6 @@ Flake8:
     - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/master/prepare-and-run-flake8.sh
     - ". ./prepare-and-run-flake8.sh boxtree test"
     tags:
-    - python3.5
+    - python3
     except:
     - tags
