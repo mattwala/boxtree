@@ -1906,8 +1906,7 @@ class FMMTraversalBuilder:
                     str(src),
                     arg_decls=base_args + extra_args,
                     debug=debug, name_prefix=list_name,
-                    complex_kernel=True,
-                    eliminate_empty_output_lists=eliminate_empty_list)
+                    complex_kernel=True)
 
         # }}}
 
